@@ -6,6 +6,7 @@
         var sockets = {};
         // Establishing the socket connection
         io.sockets.on('connection', function(socket){
+            socket.id = Math.random();
             sockets[socket.id] = socket;
             
             // Establishing the game environment and adding players into players list
@@ -30,15 +31,15 @@
                         });
                     });
                 });
-               
-            });
-            // disconnecting the player socket connection
-            socket.on('disconnect', function(){
-                delete sockets[socket.id];
-                Player.onDisconnect(socket.id, function(_player){
-                    emitPlayerState(sockets, _player, { message: "Disconnected" });
+               // disconnecting the player socket connection
+                socket.on('disconnect', function(){
+                    delete sockets[socket.id];
+                    Player.onDisconnect(socket.id, function(_player){
+                        emitPlayerState(sockets, _player, { message: "Disconnected" });
+                    });
                 });
             });
+            
         });
         
         // notifying the players robot events to client

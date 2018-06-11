@@ -10,11 +10,10 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/client/index.html');
 });
 
-
 process.on('uncaughtException', (error) => {
     const colour = require("colour");
     const dateFormat = require("dateformat");
-    console.log(dateFormat(new Date(), "dd/mm/yyyy HH:MM:ss").cyan + " > ".red + error.red);
+    console.log(dateFormat(new Date(), "dd/mm/yyyy HH:MM:ss").cyan + " > ".red + error.message);
     process.exit(1);
 });
 

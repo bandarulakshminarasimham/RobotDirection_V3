@@ -71,6 +71,12 @@ $(function(){
     };
 
     $("#btnStart").click(function(){
+        if ($("#startDiv-username").val() === "" || 
+            $("#startDiv-username").val() === undefined || 
+            $("#startDiv-username").val() === null) {
+                alert("Please enter Nickname.");
+            return;
+        }
         socket.emit('startGame',{
             username: $("#startDiv-username").val()
         });
